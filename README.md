@@ -105,9 +105,6 @@ License
 
 This project is licensed under the MIT License.
 
-markdown
-
-
 ## Key Sections:
 1. **Features**: A summary of the application’s functionality.
 2. **Project Structure**: Explains the architecture and purpose of each project.
