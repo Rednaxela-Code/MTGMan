@@ -1,4 +1,4 @@
-# MTG Card Manager API
+# MTG Card Manager
 
 MTG Card Manager is an API application designed to help Magic: The Gathering (MTG) enthusiasts manage their card collections and decks. The application provides functionality to recognize cards from images, retrieve specific data using Azure services, and enhance the data by calling the Scryfall API. It supports creating and managing collections and playdecks, with a SQL Server backend for data persistence.
 
@@ -80,8 +80,6 @@ To run this project, you will need:
     dotnet ef database update
 
 5. **Run the Application**:
-
-bash
 
     dotnet run --project API
 
