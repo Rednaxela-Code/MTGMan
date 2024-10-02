@@ -2,6 +2,9 @@
 
 MTG Card Manager is an API application designed to help Magic: The Gathering (MTG) enthusiasts manage their card collections and decks. The application provides functionality to recognize cards from images, retrieve specific data using Azure services, and enhance the data by calling the Scryfall API. It supports creating and managing collections and playdecks, with a SQL Server backend for data persistence.
 
+A **Vite Vue.ts frontend** is planned for a smooth and modern user interface, allowing users to easily interact with the card recognition, collections, and deck-building features.
+
+
 ## Features
 - **MTG Card Recognition**: Upload a photograph of your MTG cards, and the app will use Azure Custom Vision to recognize the cards.
 - **Scryfall API Integration**: Once recognized, the app fetches detailed card data from the Scryfall API, including card text, rarity, types, and more.
@@ -59,16 +62,16 @@ To run this project, you will need:
    ```bash
    git clone https://github.com/your-repo/mtg-card-manager.git
    cd mtg-card-manager
-2. Configure SQL Server:
+2. **Configure SQL Server**:
 
     Update the connection string in appsettings.json with your SQL Server credentials.
 
-3. Configure Azure Services:
+3. **Configure Azure Services**:
 
     Set up Azure Custom Vision and Computer Vision services.
     Add your Azure API keys and endpoints to the environment or appsettings.json.
 
-4. Run Migrations:
+4. **Run Migrations**:
 
     Apply migrations to set up the database schema.
 
@@ -76,7 +79,7 @@ To run this project, you will need:
 
     dotnet ef database update
 
-5. Run the Application:
+5. **Run the Application**:
 
 bash
 
