@@ -75,12 +75,14 @@ To run this project, you will need:
 
     Apply migrations to set up the database schema.
 
-    bash
+    ```bash
 
     dotnet ef database update
 
 5. **Run the Application**:
 
+   ```bash
+   
     dotnet run --project API
 
     Access API Documentation:
