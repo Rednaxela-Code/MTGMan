@@ -31,12 +31,6 @@ The project follows a clean, modular architecture with distinct responsibilities
    - **Azure Computer Vision (OCR)** for extracting any text from the cards.
    - **Scryfall API**: Once a card is recognized, the Scryfall API is used to fetch additional card information and metadata.
 
-### 4. **Core Project**
-   The Core project holds the business logic for the application. It serves as the middle layer between the `DataAccess` project and the controllers in the API. It contains:
-   - **Services**: Business logic for handling cards, collections, and decks.
-   - **Card Processing Logic**: Includes recognition, data enhancement, and validation rules.
-   - **DTO Mappers**: Mapping logic between domain models and DTOs.
-
 ### 5. **API Project**
    This is the entry point for the application, exposing endpoints that allow clients to interact with the system. The API handles:
    - **Card recognition endpoint**: Allows users to upload images for card recognition.
