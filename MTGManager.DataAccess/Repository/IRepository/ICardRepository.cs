@@ -2,8 +2,8 @@
 
 namespace MTGManager.DataAccess.Repository.IRepository
 {
-    public interface ICardRepository : IRepository<Card>
+    public interface ICardRepository : IRepository<ScryfallCard>
     {
-        void Update(Card obj);
+        void Update(ScryfallCard obj);
     }
 }

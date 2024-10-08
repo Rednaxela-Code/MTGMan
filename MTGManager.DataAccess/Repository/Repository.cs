@@ -21,6 +21,11 @@ namespace MTGManager.DataAccess.Repository
             dbSet.Add(entity);
         }
 
+        public void AddRange(IEnumerable<T> entities)
+        {
+            dbSet.AddRange(entities);
+        }
+
         public IEnumerable<T> GetAll(Expression<Func<T, bool>>? filter = null, string? includeProperties = null)
         {
             IQueryable<T> query = dbSet;

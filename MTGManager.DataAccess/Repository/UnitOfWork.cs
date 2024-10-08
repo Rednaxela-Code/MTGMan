@@ -3,7 +3,7 @@ using MTGManager.DataAccess.Repository.IRepository;
 
 namespace MTGManager.DataAccess.Repository
 {
-    public class UnitOfWork
+    public class UnitOfWork : IUnitOfWork
     {
         private ApplicationDbContext _db;
 
@@ -14,5 +14,10 @@ namespace MTGManager.DataAccess.Repository
         }
 
         public ICardRepository Card { get; private set; }
+
+        public void Save()
+        {
+            _db.SaveChanges();
+        }
     }
 }

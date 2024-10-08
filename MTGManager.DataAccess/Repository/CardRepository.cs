@@ -4,7 +4,7 @@ using MTGManager.Shared.Models;
 
 namespace MTGManager.DataAccess.Repository
 {
-    public class CardRepository : Repository<Card>, ICardRepository
+    public class CardRepository : Repository<ScryfallCard>, ICardRepository
     {
         private ApplicationDbContext _db;
 
@@ -14,7 +14,7 @@ namespace MTGManager.DataAccess.Repository
         }
 
 
-        public void Update(Card obj)
+        public void Update(ScryfallCard obj)
         {
             _db.Cards.Update(obj);
         }

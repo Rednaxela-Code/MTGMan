@@ -15,6 +15,6 @@ namespace MTGManager.DataAccess.Database
         {
         }
 
-        public DbSet<Card> Cards { get; set; }
+        public DbSet<ScryfallCard> Cards { get; set; }
     }
 }
