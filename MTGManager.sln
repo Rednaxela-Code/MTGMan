@@ -22,8 +22,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MTGManager.Core", "MTGManag
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MTGManager.Debug", "MTGManager.Debug\MTGManager.Debug.csproj", "{6751471B-C3B2-463F-834B-6E1AC436DA56}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ScryfallAPI.Client", "ScryfallApi.Client\ScryfallAPI.Client.csproj", "{71F3A8C0-F3CA-44F3-A557-83FDAA9C3884}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -58,10 +56,6 @@ Global
 		{6751471B-C3B2-463F-834B-6E1AC436DA56}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6751471B-C3B2-463F-834B-6E1AC436DA56}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6751471B-C3B2-463F-834B-6E1AC436DA56}.Release|Any CPU.Build.0 = Release|Any CPU
-		{71F3A8C0-F3CA-44F3-A557-83FDAA9C3884}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{71F3A8C0-F3CA-44F3-A557-83FDAA9C3884}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{71F3A8C0-F3CA-44F3-A557-83FDAA9C3884}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{71F3A8C0-F3CA-44F3-A557-83FDAA9C3884}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
