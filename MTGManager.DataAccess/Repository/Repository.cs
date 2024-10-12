@@ -79,9 +79,9 @@ namespace MTGManager.DataAccess.Repository
 
         }
 
-        public void Remove(T entity)
+        public async Task Remove(T entity)
         {
-            dbSet.Remove(entity);
+            await Task.FromResult(dbSet.Remove(entity));
         }
 
         public void RemoveRange(IEnumerable<T> entity)

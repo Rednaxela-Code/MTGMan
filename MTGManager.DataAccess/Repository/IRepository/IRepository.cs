@@ -9,7 +9,7 @@ namespace MTGManager.DataAccess.Repository.IRepository
         Task<IEnumerable<T>> GetAll(Expression<Func<T, bool>>? filter = null, string? includeProperties = null);
         Task<T> Add(T entity);
         Task<IEnumerable<T>> AddRange(IEnumerable<T> entities);
-        void Remove(T entity);
+        Task Remove(T entity);
         void RemoveRange(IEnumerable<T> entity);
     }
 }
