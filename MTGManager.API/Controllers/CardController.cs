@@ -34,8 +34,8 @@ namespace MTGManager.API.Controllers
                     return BadRequest("Unable to parse the card data.");
                 }
 
-                _unitOfWork.Card.Add(card);
-                _unitOfWork.Save();
+                await _unitOfWork.Card.Add(card);
+                await Task.FromResult(_unitOfWork.Save());
 
                 return Ok();
             }

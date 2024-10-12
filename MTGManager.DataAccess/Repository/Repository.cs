@@ -46,7 +46,7 @@ namespace MTGManager.DataAccess.Repository
             return query;
         }
 
-        public T GetFirstOrDefault(Expression<Func<T, bool>> filter, string? includeProperties = null, bool tracked = true)
+        public async Task<T> GetFirstOrDefault(Expression<Func<T, bool>> filter, string? includeProperties = null, bool tracked = true)
         {
             if (tracked)
             {
@@ -60,7 +60,7 @@ namespace MTGManager.DataAccess.Repository
                         query = query.Include(includeProp);
                     }
                 }
-                return query.FirstOrDefault();
+                await query.FirstOrDefaultAsync();
             }
             else
             {
@@ -74,9 +74,9 @@ namespace MTGManager.DataAccess.Repository
                         query = query.Include(includeProp);
                     }
                 }
-                return query.FirstOrDefault();
+                await query.FirstOrDefaultAsync();
             }
-
+            return null;
         }
 
         public async Task Remove(T entity)
