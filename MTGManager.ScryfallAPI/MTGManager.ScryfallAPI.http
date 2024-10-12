@@ -1,6 +1,0 @@
-@MTGManager.ScryfallAPI_HostAddress = http://localhost:5023
-
-GET {{MTGManager.ScryfallAPI_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###
