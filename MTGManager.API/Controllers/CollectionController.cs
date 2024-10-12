@@ -35,5 +35,23 @@ namespace MTGManager.API.Controllers
                 return StatusCode(500, $"Internal server error: {ex.Message}");
             }
         }
+
+        [HttpGet]
+        public async Task<IActionResult> GetCollection([FromQuery] Guid id)
+        {
+            try
+            {
+                var collection = await _unitOfWork.Collection.GetFirstOrDefault(c => c.Id == id);
+                if (collection != null)
+                {
+                    return Ok();
+                }
+                return BadRequest($"Collection with ID: {id} was not found.");
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"{ex.Message}");
+            }
+        }
     }
 }
