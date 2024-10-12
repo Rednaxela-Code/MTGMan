@@ -16,17 +16,19 @@ namespace MTGManager.DataAccess.Repository
             this.dbSet = _db.Set<T>();
         }
 
-        public void Add(T entity)
+        public async Task<T> Add(T entity)
         {
-            dbSet.Add(entity);
+            await dbSet.AddAsync(entity);
+            return entity;
         }
 
-        public void AddRange(IEnumerable<T> entities)
+        public async Task<IEnumerable<T>> AddRange(IEnumerable<T> entities)
         {
-            dbSet.AddRange(entities);
+            await dbSet.AddRangeAsync(entities);
+            return entities;
         }
 
-        public IEnumerable<T> GetAll(Expression<Func<T, bool>>? filter = null, string? includeProperties = null)
+        public async Task<IEnumerable<T>> GetAll(Expression<Func<T, bool>>? filter = null, string? includeProperties = null)
         {
             IQueryable<T> query = dbSet;
             if (filter != null)
@@ -40,7 +42,8 @@ namespace MTGManager.DataAccess.Repository
                     query = query.Include(includeProp);
                 }
             }
-            return query.ToList();
+            await query.ToListAsync();
+            return query;
         }
 
         public T GetFirstOrDefault(Expression<Func<T, bool>> filter, string? includeProperties = null, bool tracked = true)

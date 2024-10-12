@@ -4,6 +4,6 @@
     {
         ICardRepository Card { get; }
 
-        void Save();
+        Task Save();
     }
 }

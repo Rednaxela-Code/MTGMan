@@ -15,9 +15,9 @@ namespace MTGManager.DataAccess.Repository
 
         public ICardRepository Card { get; private set; }
 
-        public void Save()
+        public async Task Save()
         {
-            _db.SaveChanges();
+            await _db.SaveChangesAsync();
         }
     }
 }
