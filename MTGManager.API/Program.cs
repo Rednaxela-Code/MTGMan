@@ -2,7 +2,6 @@ using Microsoft.EntityFrameworkCore;
 using MTGManager.DataAccess.Database;
 using MTGManager.DataAccess.Repository;
 using MTGManager.DataAccess.Repository.IRepository;
-using ScryfallApi.Client;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,16 +10,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlSer
     builder.Configuration.GetConnectionString("DefaultConnection")
     ));
 builder.Services.AddHttpClient();
-builder.Services.AddHttpClient<ScryfallApiClient>(client =>
-{
-    client.BaseAddress = new Uri("https://api.scryfall.com/");
 
-    // Set the User-Agent header
-    client.DefaultRequestHeaders.UserAgent.ParseAdd("MTGManager/1.0");
-
-    // Set the Accept header
-    client.DefaultRequestHeaders.Accept.ParseAdd("application/json;q=0.9,*/*;q=0.8");
-});
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 builder.Services.AddControllers()

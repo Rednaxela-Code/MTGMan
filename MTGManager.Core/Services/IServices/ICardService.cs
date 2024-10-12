@@ -1,4 +1,6 @@
-﻿namespace MTGManager.Core.Services.IServices
+﻿using MTGManager.Shared.Models;
+
+namespace MTGManager.Core.Services.IServices
 {
     public interface ICardService
     {

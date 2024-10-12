@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace MTGManager.DataAccess.Migrations
 {
     /// <inheritdoc />
-    public partial class First : Migration
+    public partial class WorkingModel : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -38,7 +38,6 @@ namespace MTGManager.DataAccess.Migrations
                     Standard = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Future = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Historic = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Timeless = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Gladiator = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Pioneer = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Explorer = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -49,10 +48,7 @@ namespace MTGManager.DataAccess.Migrations
                     Penny = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Commander = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Oathbreaker = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    StandardBrawl = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Brawl = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Alchemy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    PauperCommander = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Paupercommander = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Duel = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Oldschool = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Premodern = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -61,24 +57,6 @@ namespace MTGManager.DataAccess.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Legalities", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Prices",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Usd = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    UsdFoil = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    UsdEtched = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Eur = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    EurFoil = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Tix = table.Column<string>(type: "nvarchar(max)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Prices", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -116,15 +94,16 @@ namespace MTGManager.DataAccess.Migrations
                 name: "Cards",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    OracleId = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Object = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    OracleId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     MultiverseIds = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     MtgoId = table.Column<int>(type: "int", nullable: true),
-                    ArenaId = table.Column<int>(type: "int", nullable: true),
+                    MtgoFoilId = table.Column<int>(type: "int", nullable: true),
                     TcgplayerId = table.Column<int>(type: "int", nullable: true),
-                    CardmarketId = table.Column<int>(type: "int", nullable: true),
+                    CardMarketId = table.Column<int>(type: "int", nullable: true),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Lang = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Language = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ReleasedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
                     Uri = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ScryfallUri = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -133,23 +112,23 @@ namespace MTGManager.DataAccess.Migrations
                     ImageStatus = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ImageUrisId = table.Column<int>(type: "int", nullable: true),
                     ManaCost = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Cmc = table.Column<double>(type: "float", nullable: true),
+                    Cmc = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
                     TypeLine = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     OracleText = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Power = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Toughness = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Colors = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ColorIdentity = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Keywords = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    LegalitiesId = table.Column<int>(type: "int", nullable: false),
+                    LegalitiesId = table.Column<int>(type: "int", nullable: true),
                     Games = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Reserved = table.Column<bool>(type: "bit", nullable: true),
                     Foil = table.Column<bool>(type: "bit", nullable: true),
-                    Nonfoil = table.Column<bool>(type: "bit", nullable: true),
+                    NonFoil = table.Column<bool>(type: "bit", nullable: true),
                     Finishes = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Oversized = table.Column<bool>(type: "bit", nullable: true),
                     Promo = table.Column<bool>(type: "bit", nullable: true),
                     Reprint = table.Column<bool>(type: "bit", nullable: true),
-                    Variation = table.Column<bool>(type: "bit", nullable: true),
-                    SetId = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    SetId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     Set = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     SetName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     SetType = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -161,10 +140,11 @@ namespace MTGManager.DataAccess.Migrations
                     CollectorNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Digital = table.Column<bool>(type: "bit", nullable: true),
                     Rarity = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    CardBackId = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    FlavorText = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CardBackId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     Artist = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ArtistIds = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    IllustrationId = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    IllustrationId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     BorderColor = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Frame = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     FullArt = table.Column<bool>(type: "bit", nullable: true),
@@ -173,9 +153,8 @@ namespace MTGManager.DataAccess.Migrations
                     StorySpotlight = table.Column<bool>(type: "bit", nullable: true),
                     EdhrecRank = table.Column<int>(type: "int", nullable: true),
                     PennyRank = table.Column<int>(type: "int", nullable: true),
-                    PricesId = table.Column<int>(type: "int", nullable: false),
-                    RelatedUrisId = table.Column<int>(type: "int", nullable: false),
-                    PurchaseUrisId = table.Column<int>(type: "int", nullable: false)
+                    RelatedUrisId = table.Column<int>(type: "int", nullable: true),
+                    PurchaseUrisId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -184,57 +163,55 @@ namespace MTGManager.DataAccess.Migrations
                         name: "FK_Cards_ImageUris_ImageUrisId",
                         column: x => x.ImageUrisId,
                         principalTable: "ImageUris",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.SetNull);
                     table.ForeignKey(
                         name: "FK_Cards_Legalities_LegalitiesId",
                         column: x => x.LegalitiesId,
                         principalTable: "Legalities",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Cards_Prices_PricesId",
-                        column: x => x.PricesId,
-                        principalTable: "Prices",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.SetNull);
                     table.ForeignKey(
                         name: "FK_Cards_PurchaseUris_PurchaseUrisId",
                         column: x => x.PurchaseUrisId,
                         principalTable: "PurchaseUris",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.SetNull);
                     table.ForeignKey(
                         name: "FK_Cards_RelatedUris_RelatedUrisId",
                         column: x => x.RelatedUrisId,
                         principalTable: "RelatedUris",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.SetNull);
                 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Cards_ImageUrisId",
                 table: "Cards",
-                column: "ImageUrisId");
+                column: "ImageUrisId",
+                unique: true,
+                filter: "[ImageUrisId] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Cards_LegalitiesId",
                 table: "Cards",
-                column: "LegalitiesId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Cards_PricesId",
-                table: "Cards",
-                column: "PricesId");
+                column: "LegalitiesId",
+                unique: true,
+                filter: "[LegalitiesId] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Cards_PurchaseUrisId",
                 table: "Cards",
-                column: "PurchaseUrisId");
+                column: "PurchaseUrisId",
+                unique: true,
+                filter: "[PurchaseUrisId] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Cards_RelatedUrisId",
                 table: "Cards",
-                column: "RelatedUrisId");
+                column: "RelatedUrisId",
+                unique: true,
+                filter: "[RelatedUrisId] IS NOT NULL");
         }
 
         /// <inheritdoc />
@@ -248,9 +225,6 @@ namespace MTGManager.DataAccess.Migrations
 
             migrationBuilder.DropTable(
                 name: "Legalities");
-
-            migrationBuilder.DropTable(
-                name: "Prices");
 
             migrationBuilder.DropTable(
                 name: "PurchaseUris");

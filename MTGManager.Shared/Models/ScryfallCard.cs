@@ -1,40 +1,43 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
 using System.Text.Json.Serialization;
+using System.Collections.Generic;
 
 namespace MTGManager.Shared.Models
 {
     public class ScryfallCard
     {
-        [Required]
+        [JsonPropertyName("object")]
+        public string? Object { get; set; }
+
         [JsonPropertyName("id")]
         public Guid Id { get; set; }
 
         [JsonPropertyName("oracle_id")]
-        public string? OracleId { get; set; }
+        public Guid? OracleId { get; set; }
 
         [JsonPropertyName("multiverse_ids")]
-        public List<int>? MultiverseIds { get; set; }
+        public int[]? MultiverseIds { get; set; }
 
         [JsonPropertyName("mtgo_id")]
         public int? MtgoId { get; set; }
 
-        [JsonPropertyName("arena_id")]
-        public int? ArenaId { get; set; }
+        [JsonPropertyName("mtgo_foil_id")]
+        public int? MtgoFoilId { get; set; }
 
         [JsonPropertyName("tcgplayer_id")]
         public int? TcgplayerId { get; set; }
 
         [JsonPropertyName("cardmarket_id")]
-        public int? CardmarketId { get; set; }
+        public int? CardMarketId { get; set; }
 
         [JsonPropertyName("name")]
         public string? Name { get; set; }
 
         [JsonPropertyName("lang")]
-        public string? Lang { get; set; }
+        public string? Language { get; set; }
 
         [JsonPropertyName("released_at")]
-        public string? ReleasedAt { get; set; }
+        public DateTime? ReleasedAt { get; set; }
 
         [JsonPropertyName("uri")]
         public Uri? Uri { get; set; }
@@ -50,6 +53,11 @@ namespace MTGManager.Shared.Models
 
         [JsonPropertyName("image_status")]
         public string? ImageStatus { get; set; }
+        // Foreign key for Legalities
+        public int? ImageUrisId { get; set; }
+
+        [JsonPropertyName("image_uris")]
+        public ImageUris? ImageUris { get; set; }
 
         [JsonPropertyName("mana_cost")]
         public string? ManaCost { get; set; }
@@ -63,17 +71,25 @@ namespace MTGManager.Shared.Models
         [JsonPropertyName("oracle_text")]
         public string? OracleText { get; set; }
 
+        [JsonPropertyName("power")]
+        public string? Power { get; set; }
+
+        [JsonPropertyName("toughness")]
+        public string? Toughness { get; set; }
+
         [JsonPropertyName("colors")]
-        public List<string>? Colors { get; set; }
+        public string[]? Colors { get; set; }
 
         [JsonPropertyName("color_identity")]
-        public List<string>? ColorIdentity { get; set; }
+        public string[]? ColorIdentity { get; set; }
+        // Foreign key for Legalities
+        public int? LegalitiesId { get; set; }
 
-        [JsonPropertyName("keywords")]
-        public List<string>? Keywords { get; set; }
+        [JsonPropertyName("legalities")]
+        public Legalities? Legalities { get; set; }
 
         [JsonPropertyName("games")]
-        public List<string>? Games { get; set; }
+        public string[]? Games { get; set; }
 
         [JsonPropertyName("reserved")]
         public bool? Reserved { get; set; }
@@ -82,10 +98,10 @@ namespace MTGManager.Shared.Models
         public bool? Foil { get; set; }
 
         [JsonPropertyName("nonfoil")]
-        public bool? Nonfoil { get; set; }
+        public bool? NonFoil { get; set; }
 
         [JsonPropertyName("finishes")]
-        public List<string>? Finishes { get; set; }
+        public string[]? Finishes { get; set; }
 
         [JsonPropertyName("oversized")]
         public bool? Oversized { get; set; }
@@ -96,11 +112,8 @@ namespace MTGManager.Shared.Models
         [JsonPropertyName("reprint")]
         public bool? Reprint { get; set; }
 
-        [JsonPropertyName("variation")]
-        public bool? Variation { get; set; }
-
         [JsonPropertyName("set_id")]
-        public string? SetId { get; set; }
+        public Guid? SetId { get; set; }
 
         [JsonPropertyName("set")]
         public string? Set { get; set; }
@@ -112,7 +125,7 @@ namespace MTGManager.Shared.Models
         public string? SetType { get; set; }
 
         [JsonPropertyName("set_uri")]
-        public string? SetUri { get; set; }
+        public Uri? SetUri { get; set; }
 
         [JsonPropertyName("set_search_uri")]
         public Uri? SetSearchUri { get; set; }
@@ -135,14 +148,17 @@ namespace MTGManager.Shared.Models
         [JsonPropertyName("rarity")]
         public string? Rarity { get; set; }
 
+        [JsonPropertyName("flavor_text")]
+        public string? FlavorText { get; set; }
+
         [JsonPropertyName("card_back_id")]
-        public string? CardBackId { get; set; }
+        public Guid? CardBackId { get; set; }
 
         [JsonPropertyName("artist")]
         public string? Artist { get; set; }
 
         [JsonPropertyName("artist_ids")]
-        public List<string>? ArtistIds { get; set; }
+        public string[]? ArtistIds { get; set; }
 
         [JsonPropertyName("illustration_id")]
         public Guid? IllustrationId { get; set; }
@@ -171,36 +187,26 @@ namespace MTGManager.Shared.Models
         [JsonPropertyName("penny_rank")]
         public int? PennyRank { get; set; }
 
-        //[Required]
-        //[JsonPropertyName("legalities")]
-        //public Legalities? Legalities { get; set; } = new();
+        // Foreign key for Prices
+        //public int? PricesId { get; set; }
+        //[JsonPropertyName("prices")]
+        //public Prices? Prices { get; set; }
 
-        public Dictionary<string, string> Legalities { get; set; }
+        // Foreign key for RelatedUris
+        public int? RelatedUrisId { get; set; }
+        [JsonPropertyName("related_uris")]
+        public RelatedUris? RelatedUris { get; set; }
 
-        [Required]
-        [JsonPropertyName("prices")]
-        public Prices? Prices { get; set; } = new();
-
-        //[Required]
-        //[JsonPropertyName("related_uris")]
-        //public RelatedUris? RelatedUris { get; set; } = new();
-
-        public Dictionary<string, Uri> RelatedUris { get; set; }
-
-        [Required]
+        // Foreign key for PurchaseUris
+        public int? PurchaseUrisId { get; set; }
         [JsonPropertyName("purchase_uris")]
-        public PurchaseUris? PurchaseUris { get; set; } = new();
+        public PurchaseUris? PurchaseUris { get; set; }
 
-        //[Required]
-        //[JsonPropertyName("image_uris")]
-        //public ImageUris? ImageUris { get; set; } = new();
 
-        public Dictionary<string, Uri> ImageUris { get; set; }
     }
 
     public class ImageUris
     {
-        [Required]
         public int Id { get; set; }
         [JsonPropertyName("small")]
         public string? Small { get; set; }
@@ -223,7 +229,6 @@ namespace MTGManager.Shared.Models
 
     public class Legalities
     {
-        [Required]
         public int Id { get; set; }
         [JsonPropertyName("standard")]
         public string? Standard { get; set; }
@@ -233,9 +238,6 @@ namespace MTGManager.Shared.Models
 
         [JsonPropertyName("historic")]
         public string? Historic { get; set; }
-
-        [JsonPropertyName("timeless")]
-        public string? Timeless { get; set; }
 
         [JsonPropertyName("gladiator")]
         public string? Gladiator { get; set; }
@@ -267,17 +269,8 @@ namespace MTGManager.Shared.Models
         [JsonPropertyName("oathbreaker")]
         public string? Oathbreaker { get; set; }
 
-        [JsonPropertyName("standardbrawl")]
-        public string? StandardBrawl { get; set; }
-
-        [JsonPropertyName("brawl")]
-        public string? Brawl { get; set; }
-
-        [JsonPropertyName("alchemy")]
-        public string? Alchemy { get; set; }
-
         [JsonPropertyName("paupercommander")]
-        public string? PauperCommander { get; set; }
+        public string? Paupercommander { get; set; }
 
         [JsonPropertyName("duel")]
         public string? Duel { get; set; }
@@ -294,7 +287,6 @@ namespace MTGManager.Shared.Models
 
     public class Prices
     {
-        [Required]
         public int Id { get; set; }
         [JsonPropertyName("usd")]
         public decimal? Usd { get; set; }
@@ -317,7 +309,6 @@ namespace MTGManager.Shared.Models
 
     public class RelatedUris
     {
-        [Required]
         public int Id { get; set; }
         [JsonPropertyName("gatherer")]
         public string? Gatherer { get; set; }
@@ -334,7 +325,6 @@ namespace MTGManager.Shared.Models
 
     public class PurchaseUris
     {
-        [Required]
         public int Id { get; set; }
         [JsonPropertyName("tcgplayer")]
         public string? Tcgplayer { get; set; }

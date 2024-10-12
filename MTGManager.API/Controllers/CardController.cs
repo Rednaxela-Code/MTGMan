@@ -1,6 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Azure;
+using Microsoft.AspNetCore.Mvc;
+using MTGManager.DataAccess.Repository.IRepository;
 using MTGManager.Shared.Models;
-using ScryfallApi.Client;
+using System.Text.Json;
 
 namespace MTGManager.API.Controllers
 {
@@ -8,19 +10,52 @@ namespace MTGManager.API.Controllers
     [Route("api/[controller]")]
     public class CardController : ControllerBase
     {
-        private readonly ScryfallApiClient _scryfallApi;
-
-        public CardController(ScryfallApiClient scryfallApi)
+        private readonly IUnitOfWork _unitOfWork;
+        public CardController(IUnitOfWork unitOfWork)
         {
-            _scryfallApi = scryfallApi;
+            _unitOfWork = unitOfWork;
         }
 
-        [HttpGet("cardsearch")]
-        public async Task<IActionResult> GetCardByFuzzy([FromQuery] string fuzzy)
+        [HttpPost]
+        [Route("add")]
+        public async Task<IActionResult> AddCard([FromBody] JsonElement jsonCard)
         {
-            var card = await _scryfallApi.Cards.Search(fuzzy, 0, ScryfallApi.Client.Models.SearchOptions.CardSort.Name);
-            ScryfallCard myCard = (ScryfallCard)card.Data;
-            return Ok(myCard);
+            try
+            {
+                var options = new JsonSerializerOptions
+                {
+                    PropertyNameCaseInsensitive = true, // Allow case-insensitive property matching
+                };
+
+                var card = JsonSerializer.Deserialize<ScryfallCard>(jsonCard.GetRawText(), options);
+
+                if (card == null)
+                {
+                    return BadRequest("Unable to parse the card data.");
+                }
+
+                _unitOfWork.Card.Add(card);
+                _unitOfWork.Save();
+
+                return Ok();
+            }
+            catch (JsonException ex)
+            {
+                return BadRequest($"JSON Parsing Error: {ex.Message}");
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
+
+
+
+        [HttpGet("Get")]
+        public async Task<IActionResult> GetCard([FromQuery] Guid id)
+        {
+            var card = _unitOfWork.Card.GetFirstOrDefault(x => x.Id == id);
+            return Ok(card);
         }
     }
 }
