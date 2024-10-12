@@ -46,37 +46,21 @@ namespace MTGManager.DataAccess.Repository
             return query;
         }
 
-        public async Task<T> GetFirstOrDefault(Expression<Func<T, bool>> filter, string? includeProperties = null, bool tracked = true)
+        public async Task<T?> GetFirstOrDefault(Expression<Func<T, bool>> filter, string? includeProperties = null, bool tracked = true)
         {
-            if (tracked)
-            {
-                IQueryable<T> query = dbSet;
+            IQueryable<T> query = tracked ? dbSet : dbSet.AsNoTracking();
 
-                query = query.Where(filter);
-                if (includeProperties != null)
-                {
-                    foreach (var includeProp in includeProperties.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
-                    {
-                        query = query.Include(includeProp);
-                    }
-                }
-                await query.FirstOrDefaultAsync();
-            }
-            else
-            {
-                IQueryable<T> query = dbSet.AsNoTracking();
+            query = query.Where(filter);
 
-                query = query.Where(filter);
-                if (includeProperties != null)
+            if (includeProperties != null)
+            {
+                foreach (var includeProp in includeProperties.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
                 {
-                    foreach (var includeProp in includeProperties.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
-                    {
-                        query = query.Include(includeProp);
-                    }
+                    query = query.Include(includeProp);
                 }
-                await query.FirstOrDefaultAsync();
             }
-            return null;
+
+            return await query.FirstOrDefaultAsync();
         }
 
         public async Task Remove(T entity)

@@ -11,9 +11,12 @@ namespace MTGManager.DataAccess.Repository
         {
             _db = db;
             Card = new CardRepository(_db);
+            Collection = new CollectionRepository(_db);
         }
 
         public ICardRepository Card { get; private set; }
+
+        public ICollectionRepository Collection { get; private set; }
 
         public async Task Save()
         {

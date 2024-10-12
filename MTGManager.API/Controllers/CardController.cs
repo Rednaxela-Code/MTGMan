@@ -1,5 +1,4 @@
-﻿using Azure;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using MTGManager.DataAccess.Repository.IRepository;
 using MTGManager.Shared.Models;
 using System.Text.Json;
@@ -11,6 +10,7 @@ namespace MTGManager.API.Controllers
     public class CardController : ControllerBase
     {
         private readonly IUnitOfWork _unitOfWork;
+
         public CardController(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
@@ -24,7 +24,7 @@ namespace MTGManager.API.Controllers
             {
                 var options = new JsonSerializerOptions
                 {
-                    PropertyNameCaseInsensitive = true, // Allow case-insensitive property matching
+                    PropertyNameCaseInsensitive = true,
                 };
 
                 var card = JsonSerializer.Deserialize<ScryfallCard>(jsonCard.GetRawText(), options);
@@ -35,7 +35,7 @@ namespace MTGManager.API.Controllers
                 }
 
                 await _unitOfWork.Card.Add(card);
-                await Task.FromResult(_unitOfWork.Save());
+                await _unitOfWork.Save();
 
                 return Ok();
             }
@@ -49,13 +49,23 @@ namespace MTGManager.API.Controllers
             }
         }
 
-
-
         [HttpGet("Get")]
         public async Task<IActionResult> GetCard([FromQuery] Guid id)
         {
-            var card = _unitOfWork.Card.GetFirstOrDefault(x => x.Id == id);
+            var card = await _unitOfWork.Card.GetFirstOrDefault(x => x.Id == id);
             return Ok(card);
+        }
+
+        [HttpDelete]
+        public async Task<IActionResult> DeleteCard([FromQuery] Guid id)
+        {
+            var card = await _unitOfWork.Card.GetFirstOrDefault(x => x.Id == id);
+            if (card != null)
+            {
+                await _unitOfWork.Card.Remove(card);
+                return Ok(card);
+            }
+            return BadRequest("Card not found");
         }
     }
 }

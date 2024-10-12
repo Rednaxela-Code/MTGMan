@@ -4,18 +4,18 @@ using MTGManager.Shared.Models;
 
 namespace MTGManager.DataAccess.Repository
 {
-    public class CardRepository : Repository<ScryfallCard>, ICardRepository
+    public class CollectionRepository : Repository<Collection>, ICollectionRepository
     {
         private ApplicationDbContext _db;
 
-        public CardRepository(ApplicationDbContext db) : base(db)
+        public CollectionRepository(ApplicationDbContext db) : base(db)
         {
             _db = db;
         }
 
-        public void Update(ScryfallCard obj)
+        public void Update(Collection obj)
         {
-            _db.Cards.Update(obj);
+            _db.Collections.Update(obj);
         }
     }
 }

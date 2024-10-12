@@ -15,6 +15,7 @@ namespace MTGManager.DataAccess.Database
         public DbSet<Legalities> Legalities { get; set; }
         public DbSet<RelatedUris> RelatedUris { get; set; }
         public DbSet<PurchaseUris> PurchaseUris { get; set; }
+        public DbSet<Collection> Collections { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

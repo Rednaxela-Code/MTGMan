@@ -4,6 +4,8 @@
     {
         ICardRepository Card { get; }
 
+        ICollectionRepository Collection { get; }
+
         Task Save();
     }
 }
